@@ -1,0 +1,64 @@
+POST http://localhost:8081/payments/process
+Content-Type: application/json
+
+{
+  "amount": 1000.01,
+  "currency": "BRL",
+  "paymentMethod": {
+    "type": "credit_card",
+    "cardNumber": "4111110000111111",
+    "expiryDate": "12/25",
+    "cvv": "123"
+  },
+  "customer": {
+    "id": "cust_001",
+    "name": "John Doe",
+    "email": "teste@teste.com.br"
+  }
+}
+
+
+###
+
+POST http:?/localhost:8002/inventory/deduct
+Content-Type: application/json
+
+{
+    "checkoutId": "chk_001",
+    "items":[
+        {
+            "productId": "prod_001",
+            "quantity": 2
+        },
+        {
+            "productId": "prod_002",
+            "quantity": 1
+        }
+    ]
+}
+
+###
+
+POST http://localhost:8083/orders
+Content-Type: application/json
+
+{
+    "email": "teste@teste.com.br",
+    "street": "street",
+    "number": "123",
+    "complement": "complement",
+    "city": "city",
+    "state": "state",
+    "zipCode": "12345-678",
+    "checkoutId": "chk_001",
+    "items": [
+        {
+            "productId": "prod_001",
+            "quantity": 2
+        },
+        {
+            "productId": "prod_002",
+            "quantity": 1
+        }
+    ]
+}
