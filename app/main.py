@@ -1,10 +1,20 @@
 from fastapi import FastAPI
 import os
+
+from fastapi.concurrency import asynccontextmanager
 from app.checkout.router import router as checkout_router
 from dotenv import load_dotenv
+from app.infra.database import create_tables
 
 
-app = FastAPI(title="Checkout Commerce", version="0.1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await create_tables()
+    yield
+    
+
+
+app = FastAPI(title="Checkout Commerce", version="0.1.0", lifespan=lifespan)
 
 
 app.include_router(checkout_router)
